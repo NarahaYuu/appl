@@ -3,8 +3,12 @@
 # Gunakan image resmi PHP dengan Apache
 FROM php:8.1-apache
 
-# Install ekstensi yang diperlukan
-RUN docker-php-ext-install pdo pdo_mysql
+# Install dependencies yang diperlukan
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    zip \
+    && docker-php-ext-install pdo pdo_mysql
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
